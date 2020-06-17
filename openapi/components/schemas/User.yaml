@@ -1,0 +1,21 @@
+type: object
+required:
+  - name
+  - email
+properties:
+  id:
+    description: Идентификатор пользователя
+    type: integer
+    readOnly: true
+  name:
+    description: ФИО
+    type: string
+    maxLength: 255
+    example: Короткова Ирина
+  phoneNumber:
+    description: Телефон
+    type: string
+  email:
+    description: Электронный адрес
+    type: string
+    example: example@example.com

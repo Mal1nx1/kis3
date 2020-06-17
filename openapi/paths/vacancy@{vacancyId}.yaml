@@ -1,0 +1,58 @@
+get:
+  summary: 'Получить вакансию по ID'
+  description: 'Получить все данные о вакансии по ID'
+  operationId: "getVacancy"
+  tags:
+    - Вакансия
+  responses:
+    '200':
+      description: 'Вакансия успешно получена'
+      content:
+        application/json:
+          schema:
+            $ref: "../components/schemas/Vacancy.yaml"
+    '404':
+      description: 'Не найдено'
+
+patch:
+  summary: 'Обновить вакансию'
+  description: 'Обновить данные про вакансию по ID'
+  operationId: "updateVacancy"
+  tags:
+    - Вакансия
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/Vacancy.yaml
+  responses:
+    '200':
+      description: 'Данные о вакансии были обновлены'
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/Vacancy.yaml
+    '401':
+      description: Отказано в доступе
+    '404':
+      description: Не найдено
+    '409':
+      description: Вакансия существует и не может быть обновлена
+    '422':
+      description: Неверные данные
+
+delete:
+  summary: "Удалить вакансию"
+  description: "Удалить вакансию по ID"
+  operationId: "deleteVacancy"
+  tags:
+    - Вакансия
+  responses:
+    '204':
+      description: Вакансия была удалена
+    '401':
+      description: Отказано в доступе
+    '402':
+      description: Не можеть быть удален
+    '404':
+      description: Не найдено

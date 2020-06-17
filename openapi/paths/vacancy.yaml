@@ -1,0 +1,22 @@
+post:
+  summary: 'Создать вакансию'
+  description: "Метод создающий новую вакансию"
+  operationId: "postVacancy"
+  tags:
+    - Вакансия
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/Vacancy.yaml
+  responses:
+    '200':
+      description: 'Вакансия была успешно добавлена'
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/Vacancy.yaml
+    '401':
+      description: 'Отказано в доступе'
+    '422':
+      description: 'Неверные данные'

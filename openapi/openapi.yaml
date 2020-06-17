@@ -1,0 +1,43 @@
+openapi: 3.0.0
+info:
+  version: '1.0'
+  title: HH API
+  contact:
+    name: Korotkova Irina
+    email: korotkova.irina99@gmail.com
+servers:
+  - url: 'https://example.com/v1.0'
+    description: Live Server
+tags:
+  - name: Компания
+    description: |
+      Раздел описывает основные методы для
+      работы с данными компании
+  - name: Пользователь
+    description: |
+      Раздел описывает основные методы для
+      работы с данными пользователя
+  - name: Вакансия
+    description: |
+      Раздел описывает основные методы для
+      работы с вакансиями
+security:
+  - SecretApiKey: []
+  - JWT: []
+paths:
+  /company:
+    $ref: './paths/company.yaml'
+  '/company/{companyId}':
+    $ref: './paths/company@{companyId}.yaml'
+  '/companies':
+    $ref: './paths/companies.yaml'
+  '/user':
+    $ref: './paths/users.yaml'
+  /user/{id}:
+    $ref: './paths/user@{id}.yaml'
+  '/vacancy':
+    $ref: './paths/vacancy.yaml'
+  '/vacancy/{vacancyId}':
+    $ref: './paths/vacancy@{vacancyId}.yaml'
+  '/vacancies/{companyId}':
+    $ref: './paths/vacancies@{companyId}.yaml'

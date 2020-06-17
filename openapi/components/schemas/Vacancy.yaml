@@ -1,0 +1,37 @@
+type: object
+required:
+  - name
+  - minSalary
+  - minExperience
+properties:
+  id:
+    type: integer
+    readOnly: true
+  name:
+    type: string
+    description: Название вакансии
+  description:
+    type: string
+    description: Описание вакансии
+  minSalary:
+    type: number
+    format: float
+    description: Минимальная зарплата
+    minimum: 0
+  maxSalary:
+    type: number
+    format: float
+    description: Максимальная зарплата
+    minimum: 0
+  minExperience:
+    type: integer
+    description: Минимальный опыт работы
+    minimum: 0
+  maxExperience:
+    type: integer
+    description: Максимальный опыт работы
+    minimum: 0
+  company:
+    description: Компания
+    allOf:
+      $ref: './Company.yaml'

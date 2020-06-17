@@ -1,0 +1,22 @@
+post:
+  summary: 'Добавить компанию'
+  description: 'Метод добавляющий новую компанию'
+  operationId: "postCompany"
+  tags:
+    - Компания
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/Company.yaml
+  responses:
+    '200':
+      description: 'Компания была успешно добавлена'
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/Company.yaml
+    '401':
+      description: 'Отказано в доступе'
+    '422':
+      description: 'Неверные данные'

@@ -1,0 +1,17 @@
+get:
+  summary: 'Получить компании'
+  description: 'Получить всю информацию обо всех компаниях'
+  operationId: "getCompanies"
+  tags:
+    - Компания
+  responses:
+    '200':
+      description: 'Данные успешно получены'
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: "../components/schemas/Company.yaml"
+    '401':
+      description: 'Отказано в доступе'

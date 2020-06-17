@@ -1,0 +1,17 @@
+get:
+  summary: 'Получить вакансии по ID компании'
+  description: 'Получить все данные о вакансиях конкретной компании по ID'
+  operationId: "getVacanciesByCompanyId"
+  tags:
+    - Вакансия
+  responses:
+    '200':
+      description: 'Данные успешно получены'
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: "../components/schemas/Vacancy.yaml"
+    '404':
+      description: 'Не найдено'

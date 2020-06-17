@@ -1,0 +1,402 @@
+openapi: 3.0.0
+info:
+  version: '1.0'
+  title: HH API
+  contact:
+    name: Korotkova Irina
+    email: korotkova.irina99@gmail.com
+servers:
+  - url: 'https://example.com/v1.0'
+    description: Live Server
+tags:
+  - name: Компания
+    description: |
+      Раздел описывает основные методы для
+      работы с данными компании
+  - name: Пользователь
+    description: |
+      Раздел описывает основные методы для
+      работы с данными пользователя
+  - name: Вакансия
+    description: |
+      Раздел описывает основные методы для
+      работы с вакансиями
+security:
+  - SecretApiKey: []
+  - JWT: []
+paths:
+  /company:
+    post:
+      summary: Добавить компанию
+      description: Метод добавляющий новую компанию
+      operationId: postCompany
+      tags:
+        - Компания
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Company'
+      responses:
+        '200':
+          description: Компания была успешно добавлена
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Company'
+        '401':
+          description: Отказано в доступе
+        '422':
+          description: Неверные данные
+  '/company/{companyId}':
+    get:
+      summary: Получить компанию по ID
+      description: Получить все данные о компании по ID
+      operationId: getCompany
+      tags:
+        - Компания
+      responses:
+        '200':
+          description: Компания успешно получена
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Company'
+        '404':
+          description: Не найдено
+    patch:
+      summary: Обновить компанию
+      description: Обновить данные про компанию по ID
+      operationId: updateCompany
+      tags:
+        - Компания
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Company'
+      responses:
+        '200':
+          description: Данные о компании были обновлены
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Company'
+        '401':
+          description: Отказано в доступе
+        '404':
+          description: Не найдено
+        '409':
+          description: Компания существует и не может быть обновлена
+        '422':
+          description: Неверные данные
+    delete:
+      summary: Удалить компанию
+      description: Удалить компанию по ID
+      operationId: deleteCompany
+      tags:
+        - Компания
+      responses:
+        '204':
+          description: Компания была удалена
+        '401':
+          description: Отказано в доступе
+        '402':
+          description: Не можеть быть удален
+        '404':
+          description: Не найдено
+  /companies:
+    get:
+      summary: Получить компании
+      description: Получить всю информацию обо всех компаниях
+      operationId: getCompanies
+      tags:
+        - Компания
+      responses:
+        '200':
+          description: Данные успешно получены
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Company'
+        '401':
+          description: Отказано в доступе
+  /user:
+    get:
+      tags:
+        - Пользователь
+      summary: Получить информацию о пользователях
+      operationId: GetUsers
+      description: |
+        Получить информацию о пользователях
+      responses:
+        '200':
+          description: Информация о пользователях была успешно получена
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+        '401':
+          description: Отказано в доступе
+    post:
+      tags:
+        - Пользователь
+      summary: Добавить нового пользователя
+      operationId: PostUser
+      description: |
+        Добавить нового пользователя
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        '200':
+          description: Пользователь был успешно добавлен
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '401':
+          description: Отказано в доступе
+        '422':
+          description: Неверные данные
+  '/user/{id}':
+    get:
+      tags:
+        - Пользователь
+      summary: Получить пользователя по ID
+      operationId: GetUser
+      description: |
+        Получить информацию о пользователе по ID
+      responses:
+        '200':
+          description: Информация о пользователе успешно получена
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '401':
+          description: Отказано в доступе
+        '404':
+          description: Не найдено
+    put:
+      tags:
+        - Пользователь
+      summary: Добавить или изменить пользователя по ID
+      operationId: PutUser
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        '201':
+          description: Пользователь был добавлен
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '401':
+          description: Отказано в доступе
+        '404':
+          description: Не найдено
+        '409':
+          description: Пользователь существует и не может быть обновлен
+        '422':
+          description: Неверные данные
+    delete:
+      tags:
+        - Пользователь
+      summary: Удалить пользователя по ID
+      operationId: DeleteUser
+      description: |
+        Удалить пользователя по ID
+      responses:
+        '204':
+          description: Пользователь был удален
+        '401':
+          description: Отказано в доступе
+        '402':
+          description: Не можеть быть удален
+        '404':
+          description: Не найдено
+  /vacancy:
+    post:
+      summary: Создать вакансию
+      description: Метод создающий новую вакансию
+      operationId: postVacancy
+      tags:
+        - Вакансия
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Vacancy'
+      responses:
+        '200':
+          description: Вакансия была успешно добавлена
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Vacancy'
+        '401':
+          description: Отказано в доступе
+        '422':
+          description: Неверные данные
+  '/vacancy/{vacancyId}':
+    get:
+      summary: Получить вакансию по ID
+      description: Получить все данные о вакансии по ID
+      operationId: getVacancy
+      tags:
+        - Вакансия
+      responses:
+        '200':
+          description: Вакансия успешно получена
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Vacancy'
+        '404':
+          description: Не найдено
+    patch:
+      summary: Обновить вакансию
+      description: Обновить данные про вакансию по ID
+      operationId: updateVacancy
+      tags:
+        - Вакансия
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Vacancy'
+      responses:
+        '200':
+          description: Данные о вакансии были обновлены
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Vacancy'
+        '401':
+          description: Отказано в доступе
+        '404':
+          description: Не найдено
+        '409':
+          description: Вакансия существует и не может быть обновлена
+        '422':
+          description: Неверные данные
+    delete:
+      summary: Удалить вакансию
+      description: Удалить вакансию по ID
+      operationId: deleteVacancy
+      tags:
+        - Вакансия
+      responses:
+        '204':
+          description: Вакансия была удалена
+        '401':
+          description: Отказано в доступе
+        '402':
+          description: Не можеть быть удален
+        '404':
+          description: Не найдено
+  '/vacancies/{companyId}':
+    get:
+      summary: Получить вакансии по ID компании
+      description: Получить все данные о вакансиях конкретной компании по ID
+      operationId: getVacanciesByCompanyId
+      tags:
+        - Вакансия
+      responses:
+        '200':
+          description: Данные успешно получены
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Vacancy'
+        '404':
+          description: Не найдено
+components:
+  schemas:
+    Company:
+      type: object
+      required:
+        - name
+      properties:
+        id:
+          description: Идентификатор компании
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          description: Название компании
+        description:
+          type: string
+          description: Описание компании
+    User:
+      type: object
+      required:
+        - name
+        - email
+      properties:
+        id:
+          description: Идентификатор пользователя
+          type: integer
+          readOnly: true
+        name:
+          description: ФИО
+          type: string
+          maxLength: 255
+          example: Короткова Ирина
+        phoneNumber:
+          description: Телефон
+          type: string
+        email:
+          description: Электронный адрес
+          type: string
+          example: example@example.com
+    Vacancy:
+      type: object
+      required:
+        - name
+        - minSalary
+        - minExperience
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          description: Название вакансии
+        description:
+          type: string
+          description: Описание вакансии
+        minSalary:
+          type: number
+          format: float
+          description: Минимальная зарплата
+          minimum: 0
+        maxSalary:
+          type: number
+          format: float
+          description: Максимальная зарплата
+          minimum: 0
+        minExperience:
+          type: integer
+          description: Минимальный опыт работы
+          minimum: 0
+        maxExperience:
+          type: integer
+          description: Максимальный опыт работы
+          minimum: 0
+        company:
+          description: Компания
+          allOf:
+            $ref: '#/components/schemas/Company'
